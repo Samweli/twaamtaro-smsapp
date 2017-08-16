@@ -11,8 +11,8 @@
     ?>
 <div class="w3-container">
    <table class="w3-table w3-hoverable w3-responsive w3-white" border="0">
-        <tr class="w3-light-grey w3-border-bottom">
-        <th class="w3-center" colspan="5">MITARO  YA  <?php echo strtoupper($filtervalue); ?></th></tr>
+        <tr class="w3-dark-grey w3-border-bottom">
+        <th class="w3-center " colspan="5">MITARO  YA  <?php echo strtoupper($filtervalue); ?></th></tr>
       <tr class="w3-light-grey w3-border-bottom">
         <th>Namba ya Mtaro</th>
         <th>Jina la Mtaro</th>
@@ -56,7 +56,7 @@
           <a href="<?php echo 'functions/notClear.php?thedrain='.$drainId; ?>"><button id="siomsafi" name="" class="btn warning" >MCHAFU</button></a>
           <a href="<?php echo 'functions/clear.php?thedrain='.$drainId; ?>"><button id="msafi" name="" class="btn success">MSAFI</button></a> 
           
-           <a href="<?php echo 'functions/inform.php?thedrain='.$drainId; ?>"><button id="taarifu" name="" class="btn w3-blue">TAARIFU</button></a>
+           <!-- a href="<?php //echo 'functions/inform.php?thedrain='.$drainId; ?>"><button id="taarifu" name="" class="btn w3-blue">TAARIFU</button></a -->
         </td>
          <?php } //End While  ?>
       </tr>

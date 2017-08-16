@@ -16,22 +16,12 @@
 
   
 ?>  
-  <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" type="text/css" href="../../styles/w3.css">
-  <link rel="stylesheet" type="text/css" href="../../styles/style.css">
-
-  </head>
- 
-  <div class="w3-row-padding w3-margin">
-    <div class="w3-col l4 m4 s12">
-  &nbsp
-    </div>
-    <div class="w3-col l4 m4 s12">
+  
+  <div class="w3-row-padding w3-margin w3-border-teal" >
+    
   <form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
-      <select id="eneo" class="w3-padding " name="filterarea">
-      <option > --- Select Area --- </option>
+      <select id="eneo" class="w3-padding" name="filterarea">
+      <option > --- Chagua Eneo --- </option>
       <?php
       //onchange="filterEneo(this.value)"
         include 'dbcon.php';
@@ -43,13 +33,8 @@
 
       <?php } ?>
       </select>
-      <button class="w3-btn btn w3-blue" name="graphbtn">BUILD GRAPH</button>
+      <button class="w3-btn btn w3-blue" name="graphbtn">TENGENEZA GRAFU</button>
   </form>
-    </div>
-
-    <div class="w3-col l4 m4 s12">
-   &nbsp
-    </div>
   </div>
 
   <!--div class="w3-row-padding" id="areabased"></div-->
@@ -97,30 +82,30 @@
 
    
     ?>
-    <div class="w3-row-padding w3-center">
+    <div class="w3-row w3-center" >
       <h2><?php echo $filtervalue; ?></h2>
-      <div class="w3-half s12">
-      <span id="errclaims"></span>
-       <div id="areastatuschart" style="width: 100%; height: 500px; margin: 0px; padding: 0;"></div>
-       <?php if ($AreaAllClaims < 1 ) {
-          echo "<p>None of the drains are claimed, thus no graph can be constructed</p>";
+      <table>
+        <tr>
+        <?php if ($AreaAllClaims < 1 ) {
+          echo "<p>Hakuna mtaro uliotwaliwa, Hivyo hauwezi kuata grafu yoyote</p>";
           }
         ?>
-      </div>
-      <div class="w3-half s12">
-       <div id="areaclaimschart" style="width: 100%; height: 500px; margin: 0px; padding: 0;"></div>
-     </div>
-<?php  } ?>
+          <td><div id="areastatuschart" style="border: 1px; margin: 0px; padding: 0;"></div></td>
+          <td><div id="areaclaimschart" style="border: 1px; margin: 0px; padding: 0;"></div></td>
+          <?php  } ?>
+        </tr>
+      </table>
+    
+  <h2>Ripoti ya Jumla</h2>
+    <table class="w3-responsive">
+    <tr>
+      <td><div id="statuschart" style="border: 1px; margin: 0px; padding: 0;"></div></td>
+      <td><div id="claimschart" style="border: 1px; margin: 0px; padding: 0;"></div></td>
+
+    </tr>
+    </table>
   </div>
-  <div class="w3-row-padding w3-center">
-  <h2>Overall Report</h2>
-   <div class="w3-half s12">
-     <div id="statuschart" style="width: 100%; height: 500px; margin: 0px; padding: 0;"></div>
-   </div>
-   <div class="w3-half s12">
-     <div id="claimschart" style="width: 100%; height: 500px; margin: 0px; padding: 0;"></div>
-   </div>
-  </div>
+  
 
 
   
@@ -134,13 +119,15 @@
 
       function AreaStatusChart() {
         var data = google.visualization.arrayToDataTable([
-          ['Drain', 'Status'],
-          ['Clean',   <?php echo $AreaCleanDrains; ?>],
-          ['Dirty',    <?php echo $AreaDirtyDrains; ?>],
-          ['Help',  <?php echo $AreaHelpDrains; ?>]
+          ['Mtaro', 'Hali'],
+          ['Safi',   <?php echo $AreaCleanDrains; ?>],
+          ['Chafu',    <?php echo $AreaDirtyDrains; ?>],
+          ['Mssaada',  <?php echo $AreaHelpDrains; ?>]
         ]);
         var options = {
-          title: 'Cleanness Report for Claimed Drains'
+          title: 'Cleanness Report for Claimed Drains',
+          'width':400,
+          'height':300
         };
         var chart = new google.visualization.PieChart(document.getElementById('areastatuschart'));
         chart.draw(data, options);
@@ -149,15 +136,17 @@
       function AreaClaimsChart() {
         var data = google.visualization.arrayToDataTable([
           ['Drain', 'Claims'],
-          ['Claimed',    <?php echo $AreaAllClaims; ?> ],
-          ['Not Claimed',     <?php echo $AreaunClaimed; ?>]
+          ['Imetwaliwa',    <?php echo $AreaAllClaims; ?> ],
+          ['Haijatwaliwa',     <?php echo $AreaunClaimed; ?>]
         ]);
         var options = {
-          title: 'Claimed vs Unclaimed Drains'
+          title: 'Mitaro iliyotwaliwa na ambayo haijatwaliwa',
+          'width':400,
+          'height':300
         };
         //Error Handling
         var errContainer = document.getElementById('errclaims');
-        var errMsg = 'Both Graph Data has zero values';
+        var errMsg = 'Grafu haiwezi kutegenezwa';
 
         //google.visualization.errors.addError(errContainer, errMsg,response.getDetailedMessage(), {'showInTooltip': false});
 
@@ -168,12 +157,14 @@
       function statusChart() {
         var data = google.visualization.arrayToDataTable([
           ['Drain', 'Status'],
-          ['Clean',    <?php echo $CleanDrains; ?> ],
-          ['Dirty',     <?php echo $DirtyDrains; ?>],
-          ['Help',  <?php echo $HelpDrains; ?>]
+          ['Safi',    <?php echo $CleanDrains; ?> ],
+          ['Chafu',     <?php echo $DirtyDrains; ?>],
+          ['Mssaada',  <?php echo $HelpDrains; ?>]
         ]);
         var options = {
-          title: 'Cleanness Report for Claimed Drains'
+          title: 'Ripoti ya Usafi kwa Mitaro ilitwaliwa',
+          'width':400,
+          'height':300
         };
         var chart = new google.visualization.PieChart(document.getElementById('statuschart'));
         chart.draw(data, options);
@@ -182,11 +173,13 @@
       function claimsChart() {
         var data = google.visualization.arrayToDataTable([
           ['Drain', 'Claims'],
-          ['Claimed',    <?php echo $AllClaims; ?> ],
-          ['Not Claimed',     <?php echo $unClaimed; ?>]
+          ['Imetwaliwa',  <?php echo $AllClaims; ?> ],
+          ['Haijatwaliwa',     <?php echo $unClaimed; ?>]
         ]);
         var options = {
-          title: 'Claimed vs Unclaimed Drains'
+          title: 'Mitaro iliyotwaliwa na ambayo haijatwaliwa',
+          'width':400,
+          'height':300
         };
         var chart = new google.visualization.PieChart(document.getElementById('claimschart'));
         chart.draw(data, options);

@@ -1,13 +1,10 @@
-<link rel="stylesheet" type="text/css" href="../../styles/w3.css">
-<link rel="stylesheet" type="text/css" href="../../styles/application.css">
-<link rel="stylesheet" type="text/css" href="../../styles/drains.css">
 
   <?php
       include 'dbcon.php';
       //$drain = pg_query($dbcon, "SELECT * FROM mitaroKigogo");  // find out how many rows are in the table 
 $drainrows = pg_query($dbcon, "SELECT COUNT(*) FROM mitaro_dar");
 $r = pg_fetch_assoc($drainrows);
-$numrows = $r[count];
+$numrows = $r['count'];
 
 //echo $numrows;
 
@@ -50,12 +47,13 @@ $dardrain = pg_query($dbcon, "SELECT *
 
       ?>
       <table class="w3-table w3-hoverable w3-responsive w3-white" border="0">
-    <tr class="w3-light-grey w3-border-bottom"> 
-      <th>NAMBA YA MTARO</th>
-      <th>JINA LA MTARO</th>
-      <th>MTAA</th>
-      <th>MHUSIKA</th>
-      <th>TUMA UJUMBE</th>
+    <tr class="w3-light-grey w3-border-bottom">
+      <th>GID</th>
+      <th>DRAIN NAME</th>
+      <th>ADDRESS</th>
+      <th>CITIZEN</th>
+      <th>SEND SMS</th> 
+      
     </tr>
   
     <?php
@@ -102,7 +100,7 @@ $dardrain = pg_query($dbcon, "SELECT *
         <a href="<?php echo 'notClear.php?thedrain='.$drainId; ?>"><button id="siomsafi" name="" class="btn warning" >DIRTY</button></a>
         <a href="<?php echo 'clear.php?thedrain='.$drainId; ?>"><button id="msafi" name="" class="btn success">CLEAN</button></a> 
         
-         <a href="<?php echo 'inform.php?thedrain='.$drainId; ?>"><button id="taarifu" name="" class="btn w3-blue">NOTIFY</button></a>
+         <!-- a href="<?php //echo 'inform.php?thedrain='.$drainId; ?>"><button id="taarifu" name="" class="btn w3-blue">NOTIFY</button></a-->
       </td>
        <!-- AJAX Scrits for Button Actions -->
     
